@@ -1,4 +1,4 @@
-for the app.js u missed some codes const express = require('express');
+const express = require('express');
 const path = require('path');
 const app = express();
 
@@ -36,5 +36,5 @@ app.get('/contact', (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(Server running on port ${PORT});
 });
