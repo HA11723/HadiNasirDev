@@ -75,7 +75,7 @@ nav ul li a {
     margin: 0 10px;                        
 }
 
-nav ul li a:hover {                        
+nav ul li a.hover {                        
     background: #2DB7BA;
     color: #000;
     transform: translateX(5px);
@@ -126,7 +126,7 @@ nav a {
     border-radius: 10px;
     text-decoration: none;
   }
-  .projects-btn:hover {
+  .projects-btn.hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(45, 183, 186, 0.3);
 }
@@ -167,7 +167,7 @@ footer {
     text-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
   }
   /* Hover Effect */
-.social-icon:hover {
+.social-icon.hover {
     color: #fff;
     transform: scale(1.2);
     text-shadow:
@@ -204,7 +204,7 @@ footer {
     border: 5px solid transparent;
 }
 
-.skill-card:hover {
+.skill-card.hover {
     border-color: #2DB7BA;
     transform: translateY(-3px);
     box-shadow: 0 20px 25px rgba(45, 183, 186, 0.2);
@@ -251,7 +251,7 @@ footer {
     transition: transform 0.3s ease, box-shadow 0.3s ease-in;
 }
 
-.project-card:hover {
+.project-card.hover {
     transform: translateY(-5px);
     box-shadow: 0 35px 40px rgba(45, 183, 186, 0.2);
 }
@@ -345,8 +345,10 @@ footer {
     color: #ddd;
     line-height: 1.5;
 }
-.project-link:hover {
+.project-link.hover {
     color: #00e5ff;
+    transform: translateY(-5px);
+  box-shadow: 0 35px 40px rgba(45, 183, 186, 0.2);
 }
     
 
@@ -498,7 +500,7 @@ footer {
 }
 
 
-.info-card:hover {
+.info-card.hover {
     border-color: #2DB7BA;
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(45, 183, 186, 0.2);
@@ -538,7 +540,7 @@ footer {
     transition: all 0.3s ease-in;
 }
 
-.value-item:hover {
+.value-item.hover {
     border-color: #2DB7BA;
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(45, 183, 186, 0.2);
@@ -674,7 +676,7 @@ footer {
     border: 2px solid transparent;
 }
 
-.contact-method:hover {
+.contact-method.hover {
     border-color: #2DB7BA;
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(45, 183, 186, 0.2);
@@ -706,7 +708,7 @@ footer {
     transition: color 0.3s ease;
 }
 
-.contact-method-info a:hover {
+.contact-method-info a.hover {
     color: #2DB7BA;
 }
 
@@ -797,12 +799,12 @@ footer {
     width: 100%;
 }
 
-.submit-btn:hover {
+.submit-btn.hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(45, 183, 186, 0.3);
 }
 
-.submit-btn:active {
+.submit-btn.active {
     transform: translateY(0);
 }
 /* Social Connect Section */
@@ -847,7 +849,7 @@ footer {
     border: 2px solid transparent;
 }
 
-.social-card:hover {
+.social-card.hover {
     border-color: #2DB7BA;
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(45, 183, 186, 0.2);
@@ -959,7 +961,7 @@ footer {
         margin: 0 10px;
     }
     
-    nav ul li a:hover {
+    nav ul li a.hover {
         background: #2DB7BA;
         color: #000;
         transform: translateX(5px);
