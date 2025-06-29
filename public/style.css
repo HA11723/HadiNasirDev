@@ -17,6 +17,73 @@
     flex: 1;
     padding: 40px 20px;
   }
+  .animated-text {
+    font-size: 1.1rem;
+    margin-top: 10px;
+    color: #ccc;
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .profile-info {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .profile-info h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .profile-info p {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #ccc;
+  }
+  
+  .profile-info .animated-text {
+    font-size: 1.1rem;
+    color: #ccc;
+    min-height: 1.4em;
+  }
+  
+  .projects-btn {
+    margin-top: 15px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s ease;
+  }
+  
+  .projects-btn:hover {
+    background: #2db7ba;
+    color: white;
+    border-color: #2db7ba;
+  }
+  
+  #rotatingText {
+    display: inline-block;
+    border-right: 2px solid #0ff;
+    padding-right: 4px;
+    animation: blink-caret 0.75s step-end infinite;
+  }
+  
+  /* Optional blinking caret */
+  @keyframes blink-caret {
+    from, to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: #0ff;
+    }
+  }
+  
+  
+  
 
 /* Header */
 header {
