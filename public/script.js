@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuIcon = document.getElementById('menuIcon');
     const navLinks = document.getElementById('navLinks');
 
-    // Toggle the mobile menu
+    // Toggle mobile menu
     if (menuIcon && navLinks) {
         menuIcon.addEventListener('click', () => {
             const isActive = navLinks.classList.toggle('active');
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.toggle('menu-open', isActive);
         });
 
-        // Close menu when clicking on any link
+        // Close menu on link click
         const menuLinks = navLinks.querySelectorAll('a');
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -21,34 +21,69 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Scroll animation: Reveal sections as they come into view
+    // Scroll animation: reveal sections on scroll
     const sections = document.querySelectorAll('.profile-container, .skills, .experience, .about-hero, .about-section, .quote-section, .contact-hero, .contact-info, .contact-form-section, .social-connect');
-
     const revealSection = () => {
         sections.forEach(section => {
             const sectionTop = section.getBoundingClientRect().top;
             const sectionHeight = section.offsetHeight;
-
             if (sectionTop < window.innerHeight - sectionHeight / 5) {
                 section.classList.add('visible');
             }
         });
     };
-
     if (sections.length > 0) {
         revealSection();
         window.addEventListener('scroll', revealSection);
     }
 
-    // Touch support for .hover effect on mobile
+    // Mobile hover support
     const hoverTargets = document.querySelectorAll(
         '.project-card, .skill-card, .info-card, .value-item, .projects-btn, .social-icon, .social-card, .submit-btn, .contact-method'
     );
-
     hoverTargets.forEach(el => {
         el.addEventListener('touchstart', () => el.classList.add('hover'), { passive: true });
         el.addEventListener('touchend', () => {
-            setTimeout(() => el.classList.remove('hover'), 400); // brief glow
+            setTimeout(() => el.classList.remove('hover'), 400);
         });
     });
+
+    // Typing animation under specialization
+    // Typing Animation with color
+const phrases = [
+    { text: "Passionate about AI", color: "#2db7ba" },
+    { text: "Focused on clean code", color: "#2db7ba" },
+    { text: "Committed to user-focused design", color: "#2db7ba" }
+];
+
+const rotatingText = document.getElementById("rotatingText");
+
+if (rotatingText) {
+    let i = 0;
+
+    const typeNext = () => {
+        const phrase = phrases[i];
+        let charIndex = 0;
+        const line = document.createElement("span");
+        line.style.color = phrase.color;
+        rotatingText.innerHTML = ""; // clear previous text
+        rotatingText.appendChild(line);
+
+        const typeChar = () => {
+            if (charIndex < phrase.text.length) {
+                line.textContent += phrase.text.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, 50);
+            } else {
+                i = (i + 1) % phrases.length;
+                setTimeout(typeNext, 1500);
+            }
+        };
+
+        typeChar();
+    };
+
+    typeNext();
+}
+
 });
