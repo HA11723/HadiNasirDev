@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const sectionTop = section.getBoundingClientRect().top;
             const sectionHeight = section.offsetHeight;
 
-            // Trigger animation when section is 20% visible
             if (sectionTop < window.innerHeight - sectionHeight / 5) {
                 section.classList.add('visible');
             }
@@ -41,18 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', revealSection);
     }
 
-    // 🔥 NEW: Simulate hover on mobile for .project-card
-    const projectCards = document.querySelectorAll('.project-card');
+    // Touch support for .hover effect on mobile
+    const hoverTargets = document.querySelectorAll(
+        '.project-card, .skill-card, .info-card, .value-item, .projects-btn, .social-icon, .social-card, .submit-btn, .contact-method'
+    );
 
-    projectCards.forEach(card => {
-        card.addEventListener('touchstart', () => {
-            card.classList.add('hover');
-        });
-
-        card.addEventListener('touchend', () => {
-            setTimeout(() => {
-                card.classList.remove('hover');
-            }, 500); // adjust duration as needed
+    hoverTargets.forEach(el => {
+        el.addEventListener('touchstart', () => el.classList.add('hover'), { passive: true });
+        el.addEventListener('touchend', () => {
+            setTimeout(() => el.classList.remove('hover'), 400); // brief glow
         });
     });
 });
