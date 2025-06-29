@@ -17,7 +17,7 @@
               <img src="/images/logo.png" alt="Hadi Nasir Logo" />
             </a>
           </div>
-      
+       
     
         <div class="menu-icon" id="menuIcon">
           <div class="hamburger-line"></div>
@@ -77,53 +77,52 @@
                         <i class="fas fa-clock"></i>
                         <div class="contact-method-info">
                             <h3>Response Time</h3>
-                            <p>within 24 hours<br>Sunday - Friday</p>
+                            <p>Within 24 hours<br>Sunday - Friday</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Contact Form -->
-            <section class="contact-form-section section">
-                <h2><i class="fas fa-comment-dots"></i> Send a Message</h2>
-                <p>Prefer to send a direct message? Fill out the form below and I'll get back to you as soon as possible.</p>
-                
-                <form class="contact-form" id="contactForm">
-                    <div class="success-message" id="successMessage">
-                        <i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. I'll get back to you soon!
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName"><i class="fas fa-user"></i> First Name *</label>
-                            <input type="text" id="firstName" name="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName"><i class="fas fa-user"></i> Last Name *</label>
-                            <input type="text" id="lastName" name="lastName" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email"><i class="fas fa-envelope"></i> Email Address *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject"><i class="fas fa-tag"></i> Subject *</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message"><i class="fas fa-comment"></i> Message *</label>
-                        <textarea id="message" name="message" placeholder="Tell me about your project, question, or just say hello..." required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
-            </section>
+           <!-- Contact Form -->
+<section class="contact-form-section section">
+    <h2><i class="fas fa-comment-dots"></i> Send a Message</h2>
+    <p>Prefer to send a direct message? Fill out the form below and I'll get back to you as soon as possible.</p>
+
+    <!-- ✅ UPDATED: Added action="/contact" and method="POST" -->
+    <form class="contact-form" id="contactForm" action="/contact" method="POST">
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="firstName"><i class="fas fa-user"></i> First Name *</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName"><i class="fas fa-user"></i> Last Name *</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email"><i class="fas fa-envelope"></i> Email Address *</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="subject"><i class="fas fa-tag"></i> Subject *</label>
+            <input type="text" id="subject" name="subject" required>
+        </div>
+
+        <div class="form-group">
+            <label for="message"><i class="fas fa-comment"></i> Message *</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project, question, or just say hello..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+    </form>
+</section>
+
         </div>
 
         <!-- Social Connect Section -->
@@ -136,28 +135,23 @@
                     <i class="fab fa-github"></i>
                     <h3>GitHub</h3>
                     <p>Check out my code repositories and open-source contributions</p>
-                    <a href="https://github.com/yourusername" target="_blank">@yourusername</a>
+                    <a href="https://github.com/HA11723" target="_blank">@HA11723</a>
                 </div>
                 
                 <div class="social-card">
                     <i class="fab fa-linkedin"></i>
                     <h3>LinkedIn</h3>
                     <p>Connect professionally and see my career journey</p>
-                    <a href="https://linkedin.com/in/yourusername" target="_blank">@yourusername</a>
+                    <a href="https://www.linkedin.com/in/hadi-nasir-09362318b/" target="_blank">@HadiNasir </a>
                 </div>
                 
-                <div class="social-card">
-                    <i class="fab fa-twitter"></i>
-                    <h3>Twitter</h3>
-                    <p>Follow for tech insights and daily programming thoughts</p>
-                    <a href="https://twitter.com/yourusername" target="_blank">@yourusername</a>
-                </div>
-                
+           
                 <div class="social-card">
                     <i class="fab fa-instagram"></i>
                     <h3>Instagram</h3>
                     <p>Behind-the-scenes content and personal updates</p>
-                    <a href="https://instagram.com/yourusername" target="_blank">@yourusername</a>
+                    <a href="https://www.instagram.com/hadi.nasir.2/" target="_blank">@hadi.nasir.2
+                    </a>
                 </div>
             </div>
         </section>
@@ -165,12 +159,11 @@
 
     <footer>
         <div class="footer-content">
-            <p>&copy; 2024 Hadi Nasir | Programmer | All rights reserved.</p>
+            <p>&copy; 2025 Hadi Nasir | Developer | All rights reserved.</p>
             <div class="social-links">
-                <a href="https://github.com/yourusername" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/yourusername" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.facebook.com/yourusername" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.instagram.com/yourusername" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href= "https://github.com/HA11723" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/hadi-nasir-09362318b/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/hadi.nasir.2/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </footer>
