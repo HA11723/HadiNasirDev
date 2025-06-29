@@ -16,7 +16,6 @@ app.get(['/', '/index'], (req, res) => {
     res.render('index');
 });
 
-
 // Route for the About Me page
 app.get('/about', (req, res) => {
     res.render('about'); // Renders the 'about.ejs' file from the 'views' folder
@@ -27,7 +26,6 @@ app.get('/projects', (req, res) => {
     res.render('projects');  // Ensure 'projects.ejs' is being rendered
 });
 
-
 // Route for the Contact page (serving static HTML file)
 app.get('/contact', (req, res) => {
     res.render('contact');
@@ -36,5 +34,5 @@ app.get('/contact', (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(Server running on port ${PORT});
+    console.log(`Server running on port ${PORT}`);  // Corrected with backticks
 });
