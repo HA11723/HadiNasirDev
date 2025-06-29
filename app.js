@@ -12,9 +12,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Route for the homepage
-app.get('/index', (req, res) => {
-    res.render('index'); // Renders the 'index.ejs' file from the 'views' folder
+app.get(['/', '/index'], (req, res) => {
+    res.render('index');
 });
+
 
 // Route for the About Me page
 app.get('/about', (req, res) => {
