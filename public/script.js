@@ -22,9 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Scroll animation: Reveal sections as they come into view
-    // Updated to include about page sections (removed duplicate .about-section)
     const sections = document.querySelectorAll('.profile-container, .skills, .experience, .about-hero, .about-section, .quote-section, .contact-hero, .contact-info, .contact-form-section, .social-connect');
-
 
     const revealSection = () => {
         sections.forEach(section => {
@@ -38,9 +36,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Run once on load and then on scroll
     if (sections.length > 0) {
         revealSection();
         window.addEventListener('scroll', revealSection);
     }
+
+    // 🔥 NEW: Simulate hover on mobile for .project-card
+    const projectCards = document.querySelectorAll('.project-card');
+
+    projectCards.forEach(card => {
+        card.addEventListener('touchstart', () => {
+            card.classList.add('hover');
+        });
+
+        card.addEventListener('touchend', () => {
+            setTimeout(() => {
+                card.classList.remove('hover');
+            }, 500); // adjust duration as needed
+        });
+    });
 });
