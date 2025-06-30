@@ -154,22 +154,26 @@ nav a {
     color: white;
     font-weight: bold;
 }
-/* Update .profile-container for desktop layout */
+
+/* Updated Profile Container - Base styles */
 .profile-container {
     display: flex;
-    flex-direction: row; /* Ensures the image and text are side by side */
-    justify-content: center; /* Centers the content horizontally */
-    align-items: center; /* Centers the items vertically */
-    gap: 30px; /* Reduces the gap between the image and text */
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
     margin-bottom: 60px;
+    max-width: 1200px; /* Add max-width */
+    margin: 0 auto 60px auto; /* Center the container itself */
+    padding: 0 20px; /* Add some padding for mobile */
 }
 
-/* Update .profile-image for better centering */
 .profile-image {
-    width: 250px; /* Adjust size as needed */
-    height: 250px; /* Adjust size as needed */
+    width: 250px;
+    height: 250px;
     border-radius: 40px;
     background: url('/images/hadi3.png') center/cover no-repeat;
+    flex-shrink: 0; /* Prevent image from shrinking */
 }
 
   .profile-info {
@@ -1148,14 +1152,23 @@ footer {
     .menu-icon {
         display: none;
     }
-    
     .profile-container {
         flex-direction: row-reverse; /* Image on right, text on left */
+        justify-content: space-between; /* Changed from center to space-between */
         align-items: center;
-        text-align: left;
+        flex-wrap: nowrap; /* Prevent wrapping on desktop */
+        gap: 80px; /* Slightly larger gap for desktop */
     }
   
     .profile-info {
         text-align: left;
+        flex: 1; /* Take up remaining space */
+        max-width: 600px; /* Increase max-width for desktop */
     }
+    
+    .profile-image {
+        flex-shrink: 0; /* Keep image size fixed */
+    }
+    
+  
 }
