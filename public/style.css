@@ -154,28 +154,21 @@ nav a {
     color: white;
     font-weight: bold;
 }
-
-/* Updated Profile Container - Base styles */
 .profile-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
     gap: 60px;
     margin-bottom: 60px;
-    max-width: 1200px; /* Add max-width */
-    margin: 0 auto 60px auto; /* Center the container itself */
-    padding: 0 20px; /* Add some padding for mobile */
-}
-
-.profile-image {
+  }
+  
+  .profile-image {
     width: 250px;
     height: 250px;
     border-radius: 40px;
     background: url('/images/hadi3.png') center/cover no-repeat;
-    flex-shrink: 0; /* Prevent image from shrinking */
-}
-
+  }
+  
   .profile-info {
     max-width: 500px;
     text-align: center;
@@ -272,13 +265,147 @@ footer {
 }
 
 .skill-card {
-    background: #222;
-    padding: 30px;
+    background: transparent; /* Change from #222 to transparent */
+    padding: 0; /* Remove padding as it's now on the inner elements */
     border-radius: 15px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease-in;
-    transition: all 0.3s ease;
+    border: none; /* Remove border as it's now on the inner elements */
+    perspective: 1000px; /* Add perspective for 3D effect */
+    height: 250px; /* Set fixed height for consistency */
+    cursor: pointer; /* Show it's clickable */
+}
+.skill-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+/* Flip the card when clicked */
+.skill-card.flipped .skill-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and back shared styles */
+.skill-card-front, .skill-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    background: #222;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: 5px solid transparent;
+    transition: all 0.3s ease;
+}
+
+
+/* Back of card */
+.skill-card-back {
+    transform: rotateY(180deg);
+    background: #1a1a1a;
+    border-color: #2DB7BA;
+}
+
+/* Hover effects for the card container */
+.skill-card:hover .skill-card-front,
+.skill-card:hover .skill-card-back {
+    border-color: #2DB7BA;
+    transform: translateY(-3px);
+    box-shadow: 0 20px 25px rgba(45, 183, 186, 0.2);
+}
+
+/* Ensure back card doesn't get affected by hover translate */
+.skill-card:hover .skill-card-back {
+    transform: rotateY(180deg) translateY(-3px);
+}
+
+/* Icons on front */
+.skill-card-front i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #2DB7BA;
+}
+
+.skill-card-front h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.skill-card-front p {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin: 0;
+}
+
+/* Back card content */
+.skill-card-back h3 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #2DB7BA;
+}
+
+/* Links container */
+.skill-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.skill-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    border: 2px solid transparent;
+}
+
+.skill-links a:hover {
+    background: #2DB7BA;
+    color: #000;
+    border-color: #00e5ff;
+    transform: translateY(-2px);
+}
+
+.skill-links a i {
+    font-size: 1rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .skill-card {
+        height: 220px; /* Slightly smaller on mobile */
+    }
+    
+    .skill-card-front, .skill-card-back {
+        padding: 20px;
+    }
+    
+    .skill-card-front i {
+        font-size: 2.5rem;
+    }
+    
+    .skill-links a {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
 }
 
 .skill-card.hover,
@@ -1152,23 +1279,14 @@ footer {
     .menu-icon {
         display: none;
     }
+    
     .profile-container {
         flex-direction: row-reverse; /* Image on right, text on left */
-        justify-content: space-between; /* Changed from center to space-between */
         align-items: center;
-        flex-wrap: nowrap; /* Prevent wrapping on desktop */
-        gap: 80px; /* Slightly larger gap for desktop */
+        text-align: left;
     }
   
     .profile-info {
         text-align: left;
-        flex: 1; /* Take up remaining space */
-        max-width: 600px; /* Increase max-width for desktop */
     }
-    
-    .profile-image {
-        flex-shrink: 0; /* Keep image size fixed */
-    }
-    
-  
 }
