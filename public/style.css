@@ -1,4 +1,6 @@
 /* Reset & Base */
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
 * {
     margin: 0;
     padding: 0;
@@ -16,6 +18,21 @@
    main {
     flex: 1;
     padding: 40px 20px;
+  }
+  .logo-text {
+    font-family: "Audiowide", sans-serif;
+    color: #00e5ff;  
+    font-size: 34px;  
+    font-weight: 600;  
+    padding: 12px 20px;  
+    border-radius: 8px;  
+    text-decoration: none;  
+    display: inline-block;  
+    transition: background-color 0.3s, transform 0.3s;  
+  }
+
+  .logo-text:hover {
+    transform: scale(1.05);  
   }
   .animated-text {
     font-size: 1.1rem;
