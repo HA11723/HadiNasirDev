@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Debug Test</title>
+
+    <!-- jsPsych v7 (CDN) -->
+    <script src="https://unpkg.com/jspsych@7.3.3/dist/jspsych.js"></script>
+    <link
+      href="https://unpkg.com/jspsych@7.3.3/css/jspsych.css"
+      rel="stylesheet"
+    />
+    <!-- Plugins -->
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.3.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.2.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@1.2.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.2.0"></script>
+
+    <style>
+      body {
+        background: #fafafa;
+        font-family: Arial, sans-serif;
+      }
+      .center {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="jspsych-target"></div>
+
+    <script>
+      console.log("Debug script starting...");
+      console.log("jsPsych available:", typeof jsPsych !== "undefined");
+
+      // Simple test
+      const timeline = [
+        {
+          type: jsPsychHtmlButtonResponse,
+          stimulus:
+            "<h1>Debug Test</h1><p>If you see this, jsPsych is working!</p>",
+          choices: ["Continue"],
+        },
+      ];
+
+      try {
+        jsPsych.init({
+          timeline: timeline,
+          on_finish: function () {
+            console.log("Debug test completed");
+          },
+        });
+      } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("jspsych-target").innerHTML =
+          "<h1>Error: " + error.message + "</h1>";
+      }
+    </script>
+  </body>
+</html>

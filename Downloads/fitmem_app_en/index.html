@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit-Mem: Memory & Exercise Study</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      button {
+        background: #4caf50;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 10px;
+      }
+      button:hover {
+        background: #45a049;
+      }
+      input,
+      select,
+      textarea {
+        padding: 8px;
+        margin: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 200px;
+      }
+      .word-display {
+        font-size: 48px;
+        text-align: center;
+        margin: 50px 0;
+        color: #333;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        width: 300px;
+        margin: 20px auto;
+      }
+      .cell {
+        width: 80px;
+        height: 80px;
+        background: #e0e0e0;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 24px;
+      }
+      .cell.active {
+        background: #ffd54f;
+        border-color: #ff9800;
+      }
+      .hidden {
+        display: none;
+      }
+      .center {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Step 1: Welcome & Consent -->
+      <div id="welcome" class="step">
+        <h1>Fit-Mem: Memory & Exercise Study</h1>
+        <p>Welcome to our memory and exercise research study!</p>
+        <p><strong>What you'll do:</strong></p>
+        <ul>
+          <li>Complete a brief exercise survey</li>
+          <li>Take memory tests (words, spatial, working memory)</li>
+          <li>Study takes 10-12 minutes total</li>
+        </ul>
+        <p>
+          <strong>Your data will remain anonymous and confidential.</strong>
+        </p>
+        <p>By clicking "I Agree", you consent to participate in this study.</p>
+        <button onclick="startStudy()">I Agree</button>
+      </div>
+
+      <!-- Step 2: Exercise Survey -->
+      <div id="survey" class="step hidden">
+        <h2>Exercise & Lifestyle Survey</h2>
+        <form id="surveyForm">
+          <p>
+            <label
+              >Age: <input type="number" id="age" min="18" max="100" required
+            /></label>
+          </p>
+          <p>
+            <label
+              >Sex:
+              <select id="sex" required>
+                <option value="">Select...</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+          </p>
+          <p>
+            <label
+              >Do you exercise regularly?
+              <select id="exercise_regularly" required>
+                <option value="">Select...</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </label>
+          </p>
+          <p>
+            <label
+              >How many days per week?
+              <input type="number" id="exercise_days" min="0" max="7" value="0"
+            /></label>
+          </p>
+          <p>
+            <label
+              >How many minutes per session?
+              <input
+                type="number"
+                id="exercise_minutes"
+                min="0"
+                max="300"
+                value="0"
+            /></label>
+          </p>
+          <p>
+            <label
+              >Exercise intensity:
+              <select id="exercise_intensity">
+                <option value="light">Light</option>
+                <option value="moderate" selected>Moderate</option>
+                <option value="vigorous">Vigorous</option>
+              </select>
+            </label>
+          </p>
+          <p>
+            <label
+              >Sleep hours last night:
+              <input type="number" id="sleep_hours" min="0" max="24" value="8"
+            /></label>
+          </p>
+          <p>
+            <label
+              >Did you have caffeine today?
+              <select id="caffeine_today" required>
+                <option value="">Select...</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </label>
+          </p>
+          <p>
+            <label
+              >Mood (0-10):
+              <input type="range" id="mood" min="0" max="10" value="5" />
+              <span id="moodValue">5</span></label
+            >
+          </p>
+          <button type="button" onclick="nextStep('wordInstructions')">
+            Continue
+          </button>
+        </form>
+      </div>
+
+      <!-- Step 3: Word List Instructions -->
+      <div id="wordInstructions" class="step hidden">
+        <h2>Word List Memory Test</h2>
+        <p>You will see 10 words, one at a time.</p>
+        <p>Try to remember as many words as you can.</p>
+        <p>
+          After the list, you will be asked to type all the words you remember.
+        </p>
+        <button onclick="startWordList()">Start</button>
+      </div>
+
+      <!-- Step 4: Word List Display -->
+      <div id="wordDisplay" class="step hidden">
+        <div class="word-display" id="currentWord"></div>
+      </div>
+
+      <!-- Step 5: Immediate Word Recall -->
+      <div id="immediateRecall" class="step hidden">
+        <h2>Word Recall Test</h2>
+        <p>
+          Type all the words you remember from the list (any order). Separate
+          each word with a comma:
+        </p>
+        <textarea
+          id="immediateWords"
+          rows="5"
+          cols="50"
+          placeholder="Type words here..."
+        ></textarea>
+        <br /><button onclick="nextStep('corsiInstructions')">Continue</button>
+      </div>
+
+      <!-- Step 6: Corsi Instructions -->
+      <div id="corsiInstructions" class="step hidden">
+        <h2>Corsi Block Task</h2>
+        <p>You will see a 3x3 grid of blocks.</p>
+        <p>Some blocks will light up in a sequence.</p>
+        <p>After the sequence, click the blocks in the same order.</p>
+        <p>
+          The sequence will get longer if you're correct, shorter if you make
+          mistakes.
+        </p>
+        <button onclick="startCorsi()">Start</button>
+      </div>
+
+      <!-- Step 7: Corsi Display -->
+      <div id="corsiDisplay" class="step hidden">
+        <h3>Watch the sequence carefully</h3>
+        <div class="grid" id="corsiGrid"></div>
+        <p id="corsiInstruction">
+          Click the blocks in the same order after the sequence
+        </p>
+      </div>
+
+      <!-- Step 8: 2-Back Instructions -->
+      <div id="nbackInstructions" class="step hidden">
+        <h2>2-Back Task</h2>
+        <p>You will see letters one at a time.</p>
+        <p>
+          <strong
+            >Press J if the current letter is the same as the one from 2
+            positions back.</strong
+          >
+        </p>
+        <p>Press any other key if it's different.</p>
+        <p>Example: If you see B - K - B, press J when you see the third B.</p>
+        <button onclick="startNBack()">Start</button>
+      </div>
+
+      <!-- Step 9: 2-Back Display -->
+      <div id="nbackDisplay" class="step hidden">
+        <div class="word-display" id="nbackLetter"></div>
+        <p>Press J if this letter matches the one from 2 positions back</p>
+      </div>
+
+      <!-- Step 10: Delayed Recall -->
+      <div id="delayedRecall" class="step hidden">
+        <h2>Delayed Word Recall</h2>
+        <p>Now please recall the words from the original word list.</p>
+        <p>Type all the words you remember from the first list.</p>
+        <textarea
+          id="delayedWords"
+          rows="5"
+          cols="50"
+          placeholder="Type words here..."
+        ></textarea>
+        <br /><button onclick="nextStep('recognitionInstructions')">
+          Continue
+        </button>
+      </div>
+
+      <!-- Step 11: Recognition Instructions -->
+      <div id="recognitionInstructions" class="step hidden">
+        <h2>Word Recognition Test</h2>
+        <p>You will see 20 words one at a time.</p>
+        <p>Some are from the original list, some are new.</p>
+        <p>
+          For each word, click "Old" if you saw it before, or "New" if it's new.
+        </p>
+        <button onclick="startRecognition()">Start</button>
+      </div>
+
+      <!-- Step 12: Recognition Display -->
+      <div id="recognitionDisplay" class="step hidden">
+        <h2>Word Recognition</h2>
+        <p>Was this word in the original list?</p>
+        <div class="word-display" id="recognitionWord"></div>
+        <button onclick="recognitionResponse(true)">Old</button>
+        <button onclick="recognitionResponse(false)">New</button>
+      </div>
+
+      <!-- Step 13: Finish -->
+      <div id="finish" class="step hidden">
+        <h2>Thank You!</h2>
+        <p>You have completed the Fit-Mem study.</p>
+        <p>Your data has been saved and will download automatically.</p>
+        <p>Thank you for participating in our research!</p>
+        <button onclick="downloadData()">Download Results</button>
+      </div>
+    </div>
+
+    <script>
+      // Global variables
+      let studyData = {
+        participantId: "P" + Date.now(),
+        startTime: new Date().toISOString(),
+        survey: {},
+        wordList: [],
+        immediateRecall: "",
+        delayedRecall: "",
+        corsiResults: [],
+        nbackResults: [],
+        recognitionResults: [],
+      };
+
+      // Word lists
+      const wordBankEasy = [
+        "book",
+        "river",
+        "chair",
+        "flower",
+        "window",
+        "apple",
+        "school",
+        "doctor",
+        "garden",
+        "music",
+        "water",
+        "paper",
+        "family",
+        "street",
+        "mountain",
+        "coffee",
+        "planet",
+        "teacher",
+        "movie",
+        "letter",
+      ];
+      const wordBankHard = [
+        "harbor",
+        "canvas",
+        "amber",
+        "velvet",
+        "ledger",
+        "shovel",
+        "mercury",
+        "orchid",
+        "marble",
+        "lantern",
+        "saddle",
+        "beacon",
+        "thimble",
+        "cobalt",
+        "ivory",
+        "chimney",
+        "harvest",
+        "meadow",
+        "piston",
+        "dagger",
+      ];
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        // Update mood slider
+        const moodSlider = document.getElementById("mood");
+        const moodValue = document.getElementById("moodValue");
+        if (moodSlider && moodValue) {
+          moodSlider.addEventListener("input", function () {
+            moodValue.textContent = this.value;
+          });
+        }
+      });
+
+      function startStudy() {
+        showStep("survey");
+      }
+
+      function nextStep(stepId) {
+        if (stepId === "wordInstructions") {
+          // Save survey data
+          studyData.survey = {
+            age: document.getElementById("age").value,
+            sex: document.getElementById("sex").value,
+            exercise_regularly:
+              document.getElementById("exercise_regularly").value,
+            exercise_days: document.getElementById("exercise_days").value,
+            exercise_minutes: document.getElementById("exercise_minutes").value,
+            exercise_intensity:
+              document.getElementById("exercise_intensity").value,
+            sleep_hours: document.getElementById("sleep_hours").value,
+            caffeine_today: document.getElementById("caffeine_today").value,
+            mood: document.getElementById("mood").value,
+          };
+          // Calculate MET
+          const metValues = { light: 3.0, moderate: 5.0, vigorous: 8.0 };
+          const days = parseInt(studyData.survey.exercise_days) || 0;
+          const minutes = parseInt(studyData.survey.exercise_minutes) || 0;
+          const intensity = studyData.survey.exercise_intensity || "moderate";
+          const metValue = metValues[intensity] || 5.0;
+          studyData.survey.met_minutes_week =
+            studyData.survey.exercise_regularly === "no"
+              ? 0
+              : days * minutes * metValue;
+        }
+        showStep(stepId);
+      }
+
+      function showStep(stepId) {
+        // Hide all steps
+        document.querySelectorAll(".step").forEach((step) => {
+          step.classList.add("hidden");
+        });
+        // Show current step
+        document.getElementById(stepId).classList.remove("hidden");
+      }
+
+      function startWordList() {
+        // Generate random word list
+        studyData.wordList = shuffleArray([...wordBankEasy]).slice(0, 10);
+        showStep("wordDisplay");
+        displayWords();
+      }
+
+      function displayWords() {
+        let wordIndex = 0;
+        const wordDisplay = document.getElementById("currentWord");
+
+        function showNextWord() {
+          if (wordIndex < studyData.wordList.length) {
+            wordDisplay.textContent = studyData.wordList[wordIndex];
+            wordIndex++;
+            setTimeout(showNextWord, 1000);
+          } else {
+            showStep("immediateRecall");
+          }
+        }
+        showNextWord();
+      }
+
+      function startCorsi() {
+        showStep("corsiDisplay");
+        // Create Corsi grid
+        const grid = document.getElementById("corsiGrid");
+        grid.innerHTML = "";
+        for (let i = 0; i < 9; i++) {
+          const cell = document.createElement("div");
+          cell.className = "cell";
+          cell.id = `cell-${i}`;
+          cell.onclick = () => handleCorsiClick(i);
+          grid.appendChild(cell);
+        }
+        runCorsiSequence();
+      }
+
+      function runCorsiSequence() {
+        const sequence = [0, 1, 2, 3, 4]; // Simple sequence for demo
+        let index = 0;
+
+        function highlightNext() {
+          if (index < sequence.length) {
+            document
+              .getElementById(`cell-${sequence[index]}`)
+              .classList.add("active");
+            setTimeout(() => {
+              document
+                .getElementById(`cell-${sequence[index]}`)
+                .classList.remove("active");
+              index++;
+              setTimeout(highlightNext, 500);
+            }, 500);
+          } else {
+            document.getElementById("corsiInstruction").textContent =
+              "Now click the blocks in the same order";
+          }
+        }
+        highlightNext();
+      }
+
+      function handleCorsiClick(position) {
+        console.log("Corsi cell clicked:", position);
+        // Simple validation - just record the click
+        studyData.corsiResults.push({
+          position: position,
+          timestamp: Date.now(),
+        });
+      }
+
+      function startNBack() {
+        showStep("nbackDisplay");
+        runNBack();
+      }
+
+      function runNBack() {
+        const letters = [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+        ];
+        const sequence = [];
+        const targets = [];
+
+        // Generate 2-back sequence
+        for (let i = 0; i < 40; i++) {
+          if (i < 2) {
+            sequence.push(letters[Math.floor(Math.random() * letters.length)]);
+          } else {
+            if (Math.random() < 0.3) {
+              sequence.push(sequence[i - 2]);
+              targets.push(i);
+            } else {
+              let newLetter;
+              do {
+                newLetter = letters[Math.floor(Math.random() * letters.length)];
+              } while (newLetter === sequence[i - 2]);
+              sequence.push(newLetter);
+            }
+          }
+        }
+
+        let index = 0;
+        const letterDisplay = document.getElementById("nbackLetter");
+
+        function showNextLetter() {
+          if (index < sequence.length) {
+            letterDisplay.textContent = sequence[index];
+            studyData.nbackResults.push({
+              letter: sequence[index],
+              position: index,
+              isTarget: targets.includes(index),
+            });
+            index++;
+            setTimeout(showNextLetter, 2000);
+          } else {
+            showStep("delayedRecall");
+          }
+        }
+        showNextLetter();
+      }
+
+      function startRecognition() {
+        showStep("recognitionDisplay");
+        const newWords = shuffleArray([...wordBankHard]).slice(0, 10);
+        const allWords = [...studyData.wordList, ...newWords];
+        studyData.recognitionWords = shuffleArray(allWords);
+        studyData.recognitionIndex = 0;
+        showRecognitionWord();
+      }
+
+      function showRecognitionWord() {
+        if (studyData.recognitionIndex < studyData.recognitionWords.length) {
+          const word = studyData.recognitionWords[studyData.recognitionIndex];
+          document.getElementById("recognitionWord").textContent = word;
+          studyData.currentRecognitionWord = word;
+        } else {
+          showStep("finish");
+        }
+      }
+
+      function recognitionResponse(isOld) {
+        const wasInOriginal = studyData.wordList.includes(
+          studyData.currentRecognitionWord
+        );
+        studyData.recognitionResults.push({
+          word: studyData.currentRecognitionWord,
+          response: isOld,
+          wasInOriginal: wasInOriginal,
+          correct: isOld === wasInOriginal,
+        });
+        studyData.recognitionIndex++;
+        showRecognitionWord();
+      }
+
+      function downloadData() {
+        studyData.endTime = new Date().toISOString();
+
+        // Create CSV data
+        const participantsData = [
+          {
+            participant_id: studyData.participantId,
+            start_time: studyData.startTime,
+            end_time: studyData.endTime,
+            age: studyData.survey.age,
+            sex: studyData.survey.sex,
+            exercise_regularly: studyData.survey.exercise_regularly,
+            exercise_days_per_week: studyData.survey.exercise_days,
+            exercise_minutes_per_session: studyData.survey.exercise_minutes,
+            exercise_intensity: studyData.survey.exercise_intensity,
+            met_minutes_week: studyData.survey.met_minutes_week,
+            sleep_hours: studyData.survey.sleep_hours,
+            caffeine_today: studyData.survey.caffeine_today,
+            mood: studyData.survey.mood,
+          },
+        ];
+
+        const wordsData = [
+          {
+            participant_id: studyData.participantId,
+            original_list: studyData.wordList.join(","),
+            immediate_recall: document.getElementById("immediateWords").value,
+            delayed_recall: document.getElementById("delayedWords").value,
+          },
+        ];
+
+        const nbackData = studyData.nbackResults.map((trial) => ({
+          participant_id: studyData.participantId,
+          letter: trial.letter,
+          position: trial.position,
+          is_target: trial.isTarget,
+        }));
+
+        const corsiData = studyData.corsiResults.map((trial) => ({
+          participant_id: studyData.participantId,
+          position: trial.position,
+          timestamp: trial.timestamp,
+        }));
+
+        // Download files
+        downloadCSV(participantsData, "Participants.csv");
+        downloadCSV(wordsData, "Words.csv");
+        downloadCSV(nbackData, "NBack.csv");
+        downloadCSV(corsiData, "Corsi.csv");
+
+        alert("Study completed! Your data has been downloaded as CSV files.");
+      }
+
+      function downloadCSV(data, filename) {
+        const csv = convertToCSV(data);
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+
+      function convertToCSV(data) {
+        if (data.length === 0) return "";
+        const headers = Object.keys(data[0]);
+        const csvContent = [
+          headers.join(","),
+          ...data.map((row) => headers.map((header) => row[header]).join(",")),
+        ].join("\n");
+        return csvContent;
+      }
+
+      function shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      }
+    </script>
+  </body>
+</html>
